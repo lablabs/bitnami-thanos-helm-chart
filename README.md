@@ -1,4 +1,4 @@
-# <$chart-name> Helm chart
+# thanos Helm chart
 
 [<img src="https://lablabs.io/static/ll-logo.png" width=350px>](https://lablabs.io/)
 
@@ -7,9 +7,12 @@ We help companies build, run, deploy and scale software and infrastructure by em
 ---
 
 ## Description
-<$chart-name> Helm chart.
+thanos Helm chart.
 
-Check out [charts/<$chart-name>/README.md](charts/<$chart-name>/README.md) for more details about the chart.
+⚠️ **Important Notice**: DO NOT USE! This chart serves as a backup solution in case we need to rollback to the Bitnami helm chart for any reason, or if Bitnami decides to discontinue their community helm charts.
+
+
+Check out [charts/thanos/README.md](charts/thanos/README.md) for more details about the chart.
 
 ## Contributing and reporting issues
 Feel free to create an issue in this repository if you have questions, suggestions or feature requests.
