@@ -10,15 +10,11 @@ annotations:
 apiVersion: v2
 appVersion: 0.39.2
 dependencies:
-- condition: minio.enabled
-  name: minio
-  repository: oci://registry-1.docker.io/bitnamicharts
-  version: 17.x.x
 - name: common
-  repository: oci://registry-1.docker.io/bitnamicharts
+  repository: https://lablabs.github.io/bitnami-common-helm-chart/
   tags:
   - bitnami-common
-  version: 2.x.x
+  version: 2.31.1
 description: Thanos is a highly available metrics system that can be added on top
   of existing Prometheus deployments, providing a global query view across all Prometheus
   installations.
