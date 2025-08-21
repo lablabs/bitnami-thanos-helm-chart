@@ -29,4 +29,18 @@ entries:
     urls:
     - https://github.com/lablabs/bitnami-thanos-helm-chart/releases/download/thanos-17.2.2/thanos-17.2.2.tgz
     version: 17.2.2
+  - apiVersion: v2
+    appVersion: 0.39.2
+    created: "2023-06-07T12:22:50.352649322Z"
+    description: Thanos is a monitoring system that allows you to monitor your infrastructure and applications.
+    digest: 6d97a77f0711d20192562f4ee1437cf294db8be1b43025f2d448bf61e1c6db01
+    maintainers:
+    - email: contact@lablabs.io
+      name: Labyrinth Labs
+      url: https://lablabs.io
+    name: thanos
+    type: application
+    urls:
+    - https://github.com/lablabs/bitnami-thanos-helm-chart/releases/download/thanos-17.3.1/thanos-17.3.1.tgz
+    version: 17.3.1
 generated: "2023-06-07T12:22:50.352654022Z"

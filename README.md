@@ -1,1 +1,1 @@
-# <$chart-name> Helm chart
+# thanos Helm chart
