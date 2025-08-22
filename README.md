@@ -9,9 +9,6 @@ We help companies build, run, deploy and scale software and infrastructure by em
 ## Description
 thanos Helm chart.
 
-⚠️ **Important Notice**: DO NOT USE! This chart serves as a backup solution in case we need to rollback to the Bitnami helm chart for any reason, or if Bitnami decides to discontinue their community helm charts.
-
-
 Check out [charts/thanos/README.md](charts/thanos/README.md) for more details about the chart.
 
 ## Contributing and reporting issues

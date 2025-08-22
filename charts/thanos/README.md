@@ -6,27 +6,6 @@ Thanos is a highly available metrics system that can be added on top of existing
 
 [Overview of Thanos](https://thanos.io/)
 
-Trademarks: This software listing is packaged by Bitnami. The respective trademarks mentioned in the offering are owned by the respective companies, and use of them does not imply any affiliation or endorsement.
-
-## TL;DR
-
-```console
-helm install my-release oci://registry-1.docker.io/bitnamicharts/thanos
-```
-
-Looking to use Thanos in production? Try [VMware Tanzu Application Catalog](https://bitnami.com/enterprise), the commercial edition of the Bitnami catalog.
-
-## ⚠️ Important Notice: Upcoming changes to the Bitnami Catalog
-
-Beginning August 28th, 2025, Bitnami will evolve its public catalog to offer a curated set of hardened, security-focused images under the new [Bitnami Secure Images initiative](https://news.broadcom.com/app-dev/broadcom-introduces-bitnami-secure-images-for-production-ready-containerized-applications). As part of this transition:
-
-- Granting community users access for the first time to security-optimized versions of popular container images.
-- Bitnami will begin deprecating support for non-hardened, Debian-based software images in its free tier and will gradually remove non-latest tags from the public catalog. As a result, community users will have access to a reduced number of hardened images. These images are published only under the “latest” tag and are intended for development purposes
-- Starting August 28th, over two weeks, all existing container images, including older or versioned tags (e.g., 2.50.0, 10.6), will be migrated from the public catalog (docker.io/bitnami) to the “Bitnami Legacy” repository (docker.io/bitnamilegacy), where they will no longer receive updates.
-- For production workloads and long-term support, users are encouraged to adopt Bitnami Secure Images, which include hardened containers, smaller attack surfaces, CVE transparency (via VEX/KEV), SBOMs, and enterprise support.
-
-These changes aim to improve the security posture of all Bitnami users by promoting best practices for software supply chain integrity and up-to-date deployments. For more details, visit the [Bitnami Secure Images announcement](https://github.com/bitnami/containers/issues/83267).
-
 ## Introduction
 
 This chart bootstraps a [Thanos](https://github.com/bitnami/containers/tree/main/bitnami/thanos) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -36,6 +15,14 @@ This chart bootstraps a [Thanos](https://github.com/bitnami/containers/tree/main
 - Kubernetes 1.23+
 - Helm 3.8.0+
 - PV provisioner support in the underlying infrastructure
+
+## Chart Origin and Modifications
+
+This Helm chart is based on the [Bitnami Thanos Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/thanos). The following modifications have been made:
+
+- Removed the `allowInsecureImages` parameter to prevent warnings when using non-Bitnami images
+- Changed Thanos container images from Bitnami Docker images to the official Quay repository (`quay.io/thanos/thanos`)
+- Replaced os-shell container image from Bitnami to standard BusyBox images
 
 ## Installing the Chart
 
@@ -369,7 +356,6 @@ You can enable this initContainer by setting `volumePermissions.enabled` to `tru
 | `global.imageRegistry`                                | Global Docker image registry                                                                                                                                                                                                                                                                                                                                        | `""`    |
 | `global.imagePullSecrets`                             | Global Docker registry secret names as an array                                                                                                                                                                                                                                                                                                                     | `[]`    |
 | `global.defaultStorageClass`                          | Global default StorageClass for Persistent Volume(s)                                                                                                                                                                                                                                                                                                                | `""`    |
-| `global.security.allowInsecureImages`                 | Allows skipping image verification                                                                                                                                                                                                                                                                                                                                  | `false` |
 | `global.compatibility.openshift.adaptSecurityContext` | Adapt the securityContext sections of the deployment to make them compatible with Openshift restricted-v2 SCC: remove runAsUser, runAsGroup and fsGroup and let the platform use their allowed default IDs. Possible values: auto (apply if the detected running cluster is Openshift), force (perform the adaptation always), disabled (do not perform adaptation) | `auto`  |
 
 ### Common parameters
@@ -1678,19 +1664,6 @@ You can enable this initContainer by setting `volumePermissions.enabled` to `tru
 | `volumePermissions.image.pullPolicy`  | Init container volume-permissions image pull policy                                                                               | `IfNotPresent`             |
 | `volumePermissions.image.pullSecrets` | Specify docker-registry secret names as an array                                                                                  | `[]`                       |
 
-### MinIO&reg; chart parameters
-
-| Name                      | Description                                                                                                                                                                                                | Value    |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `minio`                   | For full list of MinIO&reg; values configurations please refer [here](https://github.com/bitnami/charts/tree/main/bitnami/minio)                                                                           |          |
-| `minio.enabled`           | Enable/disable MinIO&reg; chart installation                                                                                                                                                               | `false`  |
-| `minio.auth.rootUser`     | MinIO&reg; root username                                                                                                                                                                                   | `admin`  |
-| `minio.auth.rootPassword` | Password for MinIO&reg; root user                                                                                                                                                                          | `""`     |
-| `minio.defaultBuckets`    | Comma, semi-colon or space separated list of MinIO&reg; buckets to create                                                                                                                                  | `thanos` |
-| `minio.resourcesPreset`   | Set container resources according to one common preset (allowed values: none, nano, small, medium, large, xlarge, 2xlarge). This is ignored if resources is set (resources is recommended for production). | `micro`  |
-| `minio.resources`         | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                                                                                          | `{}`     |
-| `minio.console.enabled`   | Enable MinIO&reg; Console                                                                                                                                                                                  | `false`  |
-
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
@@ -1723,10 +1696,6 @@ This major updates the `minio` subchart to its newest major, 17.0.0. For more in
 ### To 16.0.0
 
 This major updates the `minio` subchart to its newest major, 16.0.0. For more information on this subchart's major, please refer to [minio upgrade notes](https://github.com/bitnami/charts/tree/main/bitnami/minio#to-1600).
-
-### To 15.9.0
-
-This version introduces image verification for security purposes. To disable it, set `global.security.allowInsecureImages` to `true`. More details at [GitHub issue](https://github.com/bitnami/charts/issues/30850).
 
 ### To 15.0.0
 
