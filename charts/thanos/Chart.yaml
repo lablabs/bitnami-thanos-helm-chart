@@ -10,7 +10,7 @@ apiVersion: v2
 appVersion: 0.39.2
 dependencies:
 - name: common
-  repository: file://charts/common
+  repository: https://lablabs.github.io/bitnami-common-helm-chart/
   tags:
   - common
   version: 2.x.x
