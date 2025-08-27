@@ -48,6 +48,11 @@ jobs:
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io --username ${GITHUB_ACTOR} --password-stdin
 
+          repo_urls=$(yq '.dependencies[].repository' charts/${CHART_NAME}/Chart.yaml | sort | uniq)
+          for repo in $repo_urls; do
+            helm repo add "$(basename $repo)" "$repo" || true
+          done
+
           helm dependency build charts/${CHART_NAME}
           helm package charts/${CHART_NAME}
           helm push "$(realpath ${CHART_NAME}-*.tgz)" oci://ghcr.io/${REPOSITORY_NAME}
